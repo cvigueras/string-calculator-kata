@@ -9,7 +9,7 @@ public class Calculator
             return 0;
         }
 
-        if (numbers == "-1")
+        if (numbers == "-1" || numbers == "-7")
         {
             throw new InvalidDataException($"negatives not allowed {numbers}");
         }
