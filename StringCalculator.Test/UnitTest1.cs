@@ -16,46 +16,25 @@ namespace StringCalculator.Test
             result.Should().Be(0);
         }
 
-        [Test]
-        public void return_number_when_only_one_number_is_given()
+        [TestCase("5", 5)]
+        [TestCase("1", 1)]
+        [TestCase("3", 3)]
+        public void return_number_when_only_one_number_is_given(string givenNumber, int expectedResult)
         {
-            var result = Calculator.Add("5");
-            result.Should().Be(5);
+            var result = Calculator.Add(givenNumber);
+            result.Should().Be(expectedResult);
         }
-
-        [Test]
-        public void return_number_when_only_other_one_number_is_given()
-        {
-            var result = Calculator.Add("1");
-            result.Should().Be(1);
-        }
-
-        [Test]
-        public void return_number_when_only_another_one_number_is_given()
-        {
-            var result = Calculator.Add("3");
-            result.Should().Be(3);
-        }
-
     }
 
     public class Calculator
     {
         public static object Add(string numbers)
         {
-            if (numbers == "5")
+            if (string.IsNullOrEmpty(numbers))
             {
-                return 5;
-            }            
-            if (numbers == "1")
-            {
-                return 1;
-            }            
-            if (numbers == "3")
-            {
-                return 3;
+                return 0;
             }
-            return 0;
+            return Convert.ToInt32(numbers);
         }
     }
 }
