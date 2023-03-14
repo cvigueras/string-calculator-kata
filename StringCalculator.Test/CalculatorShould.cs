@@ -57,5 +57,12 @@ namespace StringCalculator.Test
             var result = Calculator.Add("1\n6,9");
             result.Should().Be(16);
         }
+
+        [Test]
+        public void return_sum_another_two_numbers_when_has_car_return_and_comma_separator()
+        {
+            var result = Calculator.Add("1\n8,19");
+            result.Should().Be(28);
+        }
     }
 }
