@@ -59,5 +59,12 @@ namespace StringCalculator.Test
             var result = Calculator.Add("//;\n1;2");
             result.Should().Be(3);
         }
+
+        [Test]
+        public void return_sum_other_numbers_with_delimiter_given()
+        {
+            var result = Calculator.Add("//;\n6;12");
+            result.Should().Be(18);
+        }
     }
 }
