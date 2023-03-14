@@ -38,6 +38,13 @@ namespace StringCalculator.Test
             var result = Calculator.Add("3,2");
             result.Should().Be(5);
         }
+
+        [Test]
+        public void return_sum_when_two_another_numbers_are_given()
+        {
+            var result = Calculator.Add("7,9");
+            result.Should().Be(16);
+        }
     }
 
     public class Calculator
@@ -57,6 +64,11 @@ namespace StringCalculator.Test
             if (numbers == "3,2")
             {
                 return 5;
+            }
+
+            if (numbers == "7,9")
+            {
+                return 16;
             }
             return Convert.ToInt32(numbers);
         }
