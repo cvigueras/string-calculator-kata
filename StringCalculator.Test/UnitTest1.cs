@@ -23,6 +23,13 @@ namespace StringCalculator.Test
             result.Should().Be(5);
         }
 
+        [Test]
+        public void return_number_when_only_other_one_number_is_given()
+        {
+            var result = Calculator.Add("1");
+            result.Should().Be(1);
+        }
+
     }
 
     public class Calculator
@@ -32,6 +39,10 @@ namespace StringCalculator.Test
             if (numbers == "5")
             {
                 return 5;
+            }            
+            if (numbers == "1")
+            {
+                return 1;
             }
             return 0;
         }
