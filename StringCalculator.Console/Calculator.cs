@@ -9,34 +9,28 @@ public class Calculator
             return 0;
         }
 
-        if (numbers == "1\n2,3")
-        {
-            return 6;
-        }
-
-        if (numbers == "1\n6,9")
-        {
-            return 16;
-        }
-
-        if (numbers == "1\n8,19")
-        {
-            return 28;
-        }
-
         return SumNumbers(numbers);
     }
 
     private static int SumNumbers(string numbers)
     {
         var totalSum = 0;
-        if (!numbers.Contains(",")) return Convert.ToInt32(numbers);
-        var arrayNumbers = numbers.Split(',');
-        foreach (var number in arrayNumbers)
+        if (numbers.Contains(","))
         {
-            totalSum += Convert.ToInt32(number);
+            if (numbers.Contains("\n"))
+            {
+                numbers = numbers.Replace("\n", ",");
+            }
+            var arrayNumbers = numbers.Split(',');
+            foreach (var number in arrayNumbers)
+            {
+                totalSum += Convert.ToInt32(number);
+            }
+
+            return totalSum;
         }
-        return totalSum;
+
+        return Convert.ToInt32(numbers);
 
     }
 }
