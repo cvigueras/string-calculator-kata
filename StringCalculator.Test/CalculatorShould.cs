@@ -79,5 +79,14 @@ namespace StringCalculator.Test
             action.Should().Throw<InvalidDataException>()
                 .WithMessage($"negatives not allowed {number}");
         }
+
+        [Test]
+        public void throw_exception_with_another_negative_number()
+        {
+            var number = "-17";
+            Action action = () => Calculator.Add(number);
+            action.Should().Throw<InvalidDataException>()
+                .WithMessage($"negatives not allowed {number}");
+        }
     }
 }
