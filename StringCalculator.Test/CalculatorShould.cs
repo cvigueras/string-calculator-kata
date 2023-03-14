@@ -44,25 +44,13 @@ namespace StringCalculator.Test
             result.Should().Be(expectedResult);
         }
 
-        [Test]
-        public void return_sum_two_numbers_when_has_car_return_and_comma_separator()
+        [TestCase("1\n2,3",6)]
+        [TestCase("1\n6,9",16)]
+        [TestCase("1\n8,19",28)]
+        public void return_sum_two_numbers_when_has_car_return_and_comma_separator(string input, int expectedResult)
         {
-            var result = Calculator.Add("1\n2,3");
-            result.Should().Be(6);
-        }
-
-        [Test]
-        public void return_sum_other_two_numbers_when_has_car_return_and_comma_separator()
-        {
-            var result = Calculator.Add("1\n6,9");
-            result.Should().Be(16);
-        }
-
-        [Test]
-        public void return_sum_another_two_numbers_when_has_car_return_and_comma_separator()
-        {
-            var result = Calculator.Add("1\n8,19");
-            result.Should().Be(28);
+            var result = Calculator.Add(input);
+            result.Should().Be(expectedResult);
         }
     }
 }
