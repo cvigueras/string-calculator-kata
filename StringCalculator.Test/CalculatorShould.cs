@@ -41,5 +41,12 @@ namespace StringCalculator.Test
             var result = Calculator.Add("1,5,7");
             result.Should().Be(13);
         }
+
+        [Test]
+        public void return_other_sum_when_more_than_two_numbers_are_given()
+        {
+            var result = Calculator.Add("3,8,9");
+            result.Should().Be(20);
+        }
     }
 }
