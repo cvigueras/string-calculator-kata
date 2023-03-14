@@ -35,25 +35,13 @@ namespace StringCalculator.Test
             result.Should().Be(expectedResult);
         }
 
-        [Test]
-        public void return_sum_when_more_than_two_numbers_are_given()
+        [TestCase("1,5,7",13)]
+        [TestCase("3,8,9",20)]
+        [TestCase("7,18,12",37)]
+        public void return_sum_when_more_than_two_numbers_are_given(string input, int expectedResult)
         {
-            var result = Calculator.Add("1,5,7");
-            result.Should().Be(13);
-        }
-
-        [Test]
-        public void return_other_sum_when_more_than_two_numbers_are_given()
-        {
-            var result = Calculator.Add("3,8,9");
-            result.Should().Be(20);
-        }
-
-        [Test]
-        public void return_another_sum_when_more_than_two_numbers_are_given()
-        {
-            var result = Calculator.Add("7,18,12");
-            result.Should().Be(37);
+            var result = Calculator.Add(input);
+            result.Should().Be(expectedResult);
         }
     }
 }

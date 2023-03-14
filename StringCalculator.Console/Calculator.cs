@@ -9,26 +9,19 @@ public class Calculator
             return 0;
         }
 
-        if (numbers == "1,5,7")
-        {
-            return 13;
-        }
+        return SumNumbers(numbers);
+    }
 
-        if (numbers == "3,8,9")
+    private static int SumNumbers(string numbers)
+    {
+        var totalSum = 0;
+        if (!numbers.Contains(",")) return Convert.ToInt32(numbers);
+        var arrayNumbers = numbers.Split(',');
+        foreach (var number in arrayNumbers)
         {
-            return 20;
+            totalSum += Convert.ToInt32(number);
         }
+        return totalSum;
 
-        if (numbers == "7,18,12")
-        {
-            return 37;
-        }
-
-        if (numbers.Contains(","))
-        {
-            return Convert.ToInt32(numbers.Split(',')[0]) + Convert.ToInt32(numbers.Split(',')[1]);
-        }
-
-        return Convert.ToInt32(numbers);
     }
 }
