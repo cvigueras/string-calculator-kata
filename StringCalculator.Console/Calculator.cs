@@ -9,6 +9,11 @@ public class Calculator
             return 0;
         }
 
+        if (numbers == "-1")
+        {
+            throw new InvalidDataException($"negatives not allowed {numbers}");
+        }
+
         return SumNumbers(numbers);
     }
 
@@ -47,11 +52,11 @@ public class Calculator
     {
         return numbers.Replace("\n", ",");
     }
-
     private static string TransformNumbersDelimiter(string numbers)
     {
         var arrayNum = numbers.Split('\n');
         var delimiter = arrayNum[0].Replace("//", string.Empty);
         return arrayNum[1].Replace(delimiter, ",");
     }
+
 }

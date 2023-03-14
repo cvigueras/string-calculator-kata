@@ -61,5 +61,14 @@ namespace StringCalculator.Test
             var result = Calculator.Add(input);
             result.Should().Be(expectedResult);
         }
+
+        [Test]
+        public void throw_exception_with_negative_number()
+        {
+            var number = "-1";
+            Action action = () => Calculator.Add(number);
+            action.Should().Throw<InvalidDataException>()
+                .WithMessage($"negatives not allowed {number}");
+        }
     }
 }
