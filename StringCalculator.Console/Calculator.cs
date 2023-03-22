@@ -6,11 +6,7 @@ public class Calculator
 {
     public static int Add(string numbers)
     {
-        if (string.IsNullOrEmpty(numbers))
-        {
-            return 0;
-        }
-
+        if (string.IsNullOrEmpty(numbers)) return 0;
         var numbersCollection = TransformNumbersDelimiter(numbers);
         HasNegativeNumbers(numbersCollection);
         return numbersCollection.Where(x => x <= 1000).ToArray().Sum();
