@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StringCalculator.Console;
@@ -17,7 +16,7 @@ public class Calculator
         return numbersCollection.Where(x => x <= 1000).ToArray().Sum();
     }
 
-    private static void HasNegativeNumbers(int[] numbers)
+    private static void HasNegativeNumbers(IEnumerable<int> numbers)
     {
         var negativesNumbers = string.Join(",", numbers.Where(x => x < 0).ToArray());
         if (negativesNumbers.Length > 0)
@@ -30,6 +29,6 @@ public class Calculator
     {
         int[] arrayNumbers = { };
         var numbersCollection = new Regex(@"-?\d+(?!(?<=\[).+?(?=\]))").Matches(numbers).ToArray();
-        return numbersCollection.Aggregate(arrayNumbers, (current, number) => current.Append<int>(Convert.ToInt32(number.Value)).ToArray());
+        return numbersCollection.Aggregate(arrayNumbers, (current, number) => current.Append(Convert.ToInt32(number.Value)).ToArray());
     }
 }
