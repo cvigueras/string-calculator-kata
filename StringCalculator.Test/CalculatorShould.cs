@@ -108,5 +108,14 @@ namespace StringCalculator.Test
         }
 
 
+        [Test]
+        public void not_sum_number_if_is_greater_than_1000()
+        {
+            var givenNumbers = "1000,999,1002,1005,3,0";
+            var expectedResult = 2002;
+            var result = Calculator.Add(givenNumbers);
+            result.Should().Be(expectedResult);
+        }
+
     }
 }
