@@ -9,38 +9,48 @@ public class Calculator
             return 0;
         }
 
-        if (numbers == "-1" || numbers == "-7"|| numbers == "-17")
-        {
-            throw new InvalidDataException($"negatives not allowed {numbers}");
-        }
-
-        return SumNumbers(numbers);
+        var arrayNumbers = TransformToArrayNumbers(numbers);
+        HasNegativeNumbers(arrayNumbers);
+        return SumTotalNumbers(arrayNumbers);
     }
 
-    private static int SumNumbers(string numbers)
+    private static void HasNegativeNumbers(string[] numbers)
+    {
+        string negativesNumbers = string.Empty;
+        foreach (var number in numbers)
+        {
+            if (Convert.ToInt32(number) < 0)
+            {
+                negativesNumbers += negativesNumbers == string.Empty ? $"{number}" : $",{number}";
+            }
+        }
+
+        if (negativesNumbers.Length > 0)
+        {
+            throw new InvalidDataException($"negatives not allowed {negativesNumbers}");
+        }
+    }
+
+    private static string[] TransformToArrayNumbers(string numbers)
     {
         if (numbers.Contains("//"))
         {
             numbers = TransformNumbersDelimiter(numbers);
         }
 
-        if (numbers.Contains(","))
+        if (numbers.Contains("\n"))
         {
-            if (numbers.Contains("\n"))
-            {
-                numbers = TransformNumbersWithReturnLine(numbers);
-            }
-
-            return SumTotalNumbers(numbers);
+            numbers = TransformNumbersWithReturnLine(numbers);
         }
-        return Convert.ToInt32(numbers);
+
+        var arrayNumbers = numbers.Split(',');
+        return arrayNumbers;
     }
 
-    private static int SumTotalNumbers(string numbers)
+    private static int SumTotalNumbers(string[] numbers)
     {
         var totalSum = 0;
-        var arrayNumbers = numbers.Split(',');
-        foreach (var number in arrayNumbers)
+        foreach (var number in numbers)
         {
             totalSum += Convert.ToInt32(number);
         }
@@ -52,11 +62,11 @@ public class Calculator
     {
         return numbers.Replace("\n", ",");
     }
+
     private static string TransformNumbersDelimiter(string numbers)
     {
         var arrayNum = numbers.Split('\n');
         var delimiter = arrayNum[0].Replace("//", string.Empty);
         return arrayNum[1].Replace(delimiter, ",");
     }
-
 }

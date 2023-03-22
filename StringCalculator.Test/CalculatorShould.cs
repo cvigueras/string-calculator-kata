@@ -65,28 +65,38 @@ namespace StringCalculator.Test
         [Test]
         public void throw_exception_with_negative_number()
         {
-            var number = "-1";
-            Action action = () => Calculator.Add(number);
+            var givenNumber = "-1";
+            Action action = () => Calculator.Add(givenNumber);
             action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {number}");
+                .WithMessage($"negatives not allowed {givenNumber}");
         }
 
         [Test]
         public void throw_exception_with_other_negative_number()
         {
-            var number = "-7";
-            Action action = () => Calculator.Add(number);
+            var givenNumber = "-7";
+            Action action = () => Calculator.Add(givenNumber);
             action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {number}");
+                .WithMessage($"negatives not allowed {givenNumber}");
         }
 
         [Test]
         public void throw_exception_with_another_negative_number()
         {
-            var number = "-17";
-            Action action = () => Calculator.Add(number);
+            var givenNumber = "-17";
+            Action action = () => Calculator.Add(givenNumber);
             action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {number}");
+                .WithMessage($"negatives not allowed {givenNumber}");
+        }
+
+        [Test]
+        public void throw_exception_with_many_negative_number()
+        {
+            var givenNumbers = "5,-17,3,-8,-9,7";
+            var expectedNumbers = "-17,-8,-9";
+            Action action = () => Calculator.Add(givenNumbers);
+            action.Should().Throw<InvalidDataException>()
+                .WithMessage($"negatives not allowed {expectedNumbers}");
         }
     }
 }
