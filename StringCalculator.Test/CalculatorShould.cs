@@ -98,5 +98,15 @@ namespace StringCalculator.Test
             action.Should().Throw<InvalidDataException>()
                 .WithMessage($"negatives not allowed {expectedNumbers}");
         }
+
+        [Test]
+        public void return_0_if_number_is_greater_than_1000()
+        {
+            var givenNumbers = "1001";
+            var result = Calculator.Add(givenNumbers);
+            result.Should().Be(0);
+        }
+
+
     }
 }

@@ -16,7 +16,7 @@ public class Calculator
 
     private static void HasNegativeNumbers(string[] numbers)
     {
-        string negativesNumbers = string.Empty;
+        var negativesNumbers = string.Empty;
         foreach (var number in numbers)
         {
             if (Convert.ToInt32(number) < 0)
@@ -52,7 +52,10 @@ public class Calculator
         var totalSum = 0;
         foreach (var number in numbers)
         {
-            totalSum += Convert.ToInt32(number);
+            if (Convert.ToInt32(number) <= 1000)
+            {
+                totalSum += Convert.ToInt32(number);
+            }
         }
 
         return totalSum;
