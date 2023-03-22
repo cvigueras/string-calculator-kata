@@ -125,5 +125,21 @@ namespace StringCalculator.Test
             result.Should().Be(6);
         }
 
+        [Test]
+        public void return_sum_with_other_specific_delimiter()
+        {
+            var givenNumbers = "//[*][%]\n1*2%3";
+            var result = Calculator.Add(givenNumbers);
+            result.Should().Be(6);
+        }
+
+        [Test]
+        public void return_sum_with_another_more_specific_delimiter()
+        {
+            var givenNumbers = "//[**][%%][??]\n1**2%%3??8";
+            var result = Calculator.Add(givenNumbers);
+            result.Should().Be(14);
+        }
+
     }
 }
