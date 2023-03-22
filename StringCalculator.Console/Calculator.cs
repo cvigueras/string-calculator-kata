@@ -16,19 +16,20 @@ public class Calculator
 
     private static void HasNegativeNumbers(string[] numbers)
     {
-        var negativesNumbers = string.Empty;
-        foreach (var number in numbers)
-        {
-            if (Convert.ToInt32(number) < 0)
-            {
-                negativesNumbers += negativesNumbers == string.Empty ? $"{number}" : $",{number}";
-            }
-        }
+        ThrowInvalidDataException(BuildMessageNegativeNumbers(numbers));
+    }
 
+    private static void ThrowInvalidDataException(string negativesNumbers)
+    {
         if (negativesNumbers.Length > 0)
         {
             throw new InvalidDataException($"negatives not allowed {negativesNumbers}");
         }
+    }
+
+    private static string BuildMessageNegativeNumbers(string[] numbers)
+    {
+        return string.Join(",", numbers.Where(x => Convert.ToInt32(x) < 0).ToArray());
     }
 
     private static string[] TransformToArrayNumbers(string numbers)
@@ -43,22 +44,12 @@ public class Calculator
             numbers = TransformNumbersWithReturnLine(numbers);
         }
 
-        var arrayNumbers = numbers.Split(',');
-        return arrayNumbers;
+        return numbers.Split(',');
     }
 
     private static int SumTotalNumbers(string[] numbers)
     {
-        var totalSum = 0;
-        foreach (var number in numbers)
-        {
-            if (Convert.ToInt32(number) <= 1000)
-            {
-                totalSum += Convert.ToInt32(number);
-            }
-        }
-
-        return totalSum;
+        return numbers.Where(x=> Convert.ToInt32(x) <= 1000).ToArray().Sum(int.Parse);
     }
 
     private static string TransformNumbersWithReturnLine(string numbers)
