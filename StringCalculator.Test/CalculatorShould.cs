@@ -14,6 +14,7 @@ namespace StringCalculator.Test
         public void return_zero_when_empty_string_given()
         {
             var result = Calculator.Add("");
+
             result.Should().Be(0);
         }
 
@@ -23,6 +24,7 @@ namespace StringCalculator.Test
         public void return_number_when_only_one_number_given(string givenNumber, int expectedResult)
         {
             var result = Calculator.Add(givenNumber);
+
             result.Should().Be(expectedResult);
         }
 
@@ -32,6 +34,7 @@ namespace StringCalculator.Test
         public void sum_when_two_numbers_given(string input, int expectedResult)
         {
             var result = Calculator.Add(input);
+
             result.Should().Be(expectedResult);
         }
 
@@ -41,6 +44,7 @@ namespace StringCalculator.Test
         public void sum_when_more_than_two_numbers_given(string input, int expectedResult)
         {
             var result = Calculator.Add(input);
+
             result.Should().Be(expectedResult);
         }
 
@@ -50,6 +54,7 @@ namespace StringCalculator.Test
         public void sum_numbers_when_has_car_return_and_comma_separator(string input, int expectedResult)
         {
             var result = Calculator.Add(input);
+
             result.Should().Be(expectedResult);
         }
 
@@ -59,34 +64,19 @@ namespace StringCalculator.Test
         public void sum_numbers_with_delimiter_given(string input, int expectedResult)
         {
             var result = Calculator.Add(input);
+
             result.Should().Be(expectedResult);
         }
 
-        [Test]
-        public void throw_exception_with_negative_number()
+        [TestCase("-1")]
+        [TestCase("-7")]
+        [TestCase("-11")]
+        public void throw_exception_with_negative_number(string input)
         {
-            var givenNumber = "-1";
-            Action action = () => Calculator.Add(givenNumber);
-            action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {givenNumber}");
-        }
+            Action action = () => Calculator.Add(input);
 
-        [Test]
-        public void throw_exception_with_other_negative_number()
-        {
-            var givenNumber = "-7";
-            Action action = () => Calculator.Add(givenNumber);
             action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {givenNumber}");
-        }
-
-        [Test]
-        public void throw_exception_with_another_negative_number()
-        {
-            var givenNumber = "-17";
-            Action action = () => Calculator.Add(givenNumber);
-            action.Should().Throw<InvalidDataException>()
-                .WithMessage($"negatives not allowed {givenNumber}");
+                .WithMessage($"negatives not allowed {input}");
         }
 
         [Test]
@@ -94,16 +84,20 @@ namespace StringCalculator.Test
         {
             var givenNumbers = "5,-17,3,-8,-9,7";
             var expectedNumbers = "-17,-8,-9";
+
             Action action = () => Calculator.Add(givenNumbers);
+
             action.Should().Throw<InvalidDataException>()
                 .WithMessage($"negatives not allowed {expectedNumbers}");
         }
 
         [Test]
-        public void return_0_if_number_is_greater_than_1000()
+        public void return_0_if_a_number_is_greater_than_1000()
         {
             var givenNumbers = "1001";
+
             var result = Calculator.Add(givenNumbers);
+
             result.Should().Be(0);
         }
 
@@ -113,33 +107,20 @@ namespace StringCalculator.Test
         {
             var givenNumbers = "1000,999,1002,1005,3,0";
             var expectedResult = 2002;
+
             var result = Calculator.Add(givenNumbers);
+
             result.Should().Be(expectedResult);
         }
 
-        [Test]
-        public void return_sum_with_specific_delimiter()
+        [TestCase("//[***]\n1***2***3",6)]
+        [TestCase("//[*][%]\n1*2%5",8)]
+        [TestCase("//[**][%%][??]\n1**2%%3??8",14)]
+        public void return_sum_with_specific_delimiter(string input, int expectedResult)
         {
-            var givenNumbers = "//[***]\n1***2***3";
-            var result = Calculator.Add(givenNumbers);
-            result.Should().Be(6);
-        }
+            var result = Calculator.Add(input);
 
-        [Test]
-        public void return_sum_with_other_specific_delimiter()
-        {
-            var givenNumbers = "//[*][%]\n1*2%3";
-            var result = Calculator.Add(givenNumbers);
-            result.Should().Be(6);
+            result.Should().Be(expectedResult);
         }
-
-        [Test]
-        public void return_sum_with_another_more_specific_delimiter()
-        {
-            var givenNumbers = "//[**][%%][??]\n1**2%%3??8";
-            var result = Calculator.Add(givenNumbers);
-            result.Should().Be(14);
-        }
-
     }
 }
