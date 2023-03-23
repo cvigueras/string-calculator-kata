@@ -4,10 +4,11 @@ namespace StringCalculator.Console;
 
 public class Calculator
 {
-    public static int Add(string numbers)
+    public static int Add(CalculatorInput calculatorInput)
     {
-        if (string.IsNullOrEmpty(numbers)) return 0;
-        var numbersCollection = TransformNumbersDelimiter(numbers);
+        if (string.IsNullOrEmpty(calculatorInput.Numbers)) return 0;
+        var numbers = calculatorInput.Numbers;
+        var numbersCollection = TransformNumbersDelimiter(new CalculatorInput(numbers)).ToList();
         HasNegativeNumbers(numbersCollection);
         return numbersCollection.Where(x => x <= 1000).ToArray().Sum();
     }
@@ -21,10 +22,9 @@ public class Calculator
         }
     }
 
-    private static int[] TransformNumbersDelimiter(string numbers)
+    private static IEnumerable<int> TransformNumbersDelimiter(CalculatorInput calculatorInput)
     {
-        int[] arrayNumbers = { };
-        var numbersCollection = new Regex(@"-?\d+(?!(?<=\[).+?(?=\]))").Matches(numbers).ToArray();
-        return numbersCollection.Aggregate(arrayNumbers, (current, number) => current.Append(Convert.ToInt32(number.Value)).ToArray());
+        var numbersCollection = new Regex(@"-?\d+(?!(?<=\[).+?(?=\]))").Matches(calculatorInput.Numbers).ToArray();
+        return (numbersCollection.Aggregate(new int[] { }, (current, number) => current.Append(Convert.ToInt32(number.Value)).ToArray()));
     }
 }
