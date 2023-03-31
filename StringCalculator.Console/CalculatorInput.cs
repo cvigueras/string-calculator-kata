@@ -23,7 +23,8 @@ public class CalculatorInput
 
     private IEnumerable<int> TransformNumbersDelimiter()
     {
-        var matchNumbers = ExecuteRegex();
+        var regex = new Regex(@"-?\d+(?!(?<=\[).+?(?=\]))");
+        var matchNumbers = regex.ExecuteRegex(calculatorInput: this);
         return GetNumbersMatch(matchNumbers);
     }
 
@@ -35,12 +36,7 @@ public class CalculatorInput
         }
     }
 
-    private Match[] ExecuteRegex()
-    {
-        return new Regex(@"-?\d+(?!(?<=\[).+?(?=\]))").Matches(Numbers).ToArray();
-    }
-
-    private static IEnumerable<int> GetNumbersMatch(Match[] matchNumbers)
+    private static IEnumerable<int> GetNumbersMatch(IEnumerable<Match> matchNumbers)
     {
         return matchNumbers.Aggregate(new int[] { }, (current, number) => current.Append(Convert.ToInt32(number.Value)).ToArray());
     }
